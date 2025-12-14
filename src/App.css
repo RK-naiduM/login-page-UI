@@ -1,38 +1,138 @@
-.App {
-  text-align: center;
+body, html, #root {
+  height:100%; margin:0; font-family:'Poppins',sans-serif; background:#000; display:flex; justify-content:center; align-items:center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+  display:flex; justify-content:center; align-items:center; width:100%; height:100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Tile */
+.tile {
+  position:relative;
+  display:flex;
+  width:900px;  
+  height:500px; 
+  border-radius:20px;
+  overflow:hidden;
+  background:#111;
+  box-shadow:0 0 50px #00ffff, 0 0 80px #00ffff80 inset;
+  transition: all 0.8s ease;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Left & Right Sides */
+.left-side, .right-side {
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:50px; 
+  flex-direction:column;
+  transition: all 0.8s ease;
+  position:relative;
+  z-index:2;
+  color:#00ffff;
 }
 
-.App-link {
-  color: #61dafb;
+/* Forms */
+form { display:flex; flex-direction:column; width:100%; max-width:300px; }
+.input-group { position:relative; margin-bottom:20px; }
+.input-group input {
+  width:100%; padding:10px 5px; border:none; border-bottom:2px solid #444; outline:none; background:transparent; color:#00ffff; font-size:16px; transition: all 0.3s ease;
+}
+.input-group input:focus { border-bottom:2px solid #00ffff; box-shadow:0 0 15px #00ffff; }
+.input-group label {
+  position:absolute; left:5px; top:10px; font-size:16px; color:#00ffff80; pointer-events:none; transition: all 0.3s ease;
+}
+.input-group input:focus + label, .input-group input:valid + label { top:-10px; font-size:12px; color:#00ffff; }
+
+form button {
+  padding:12px; margin-top:10px; border:none; border-radius:8px; cursor:pointer; font-size:16px; color:#000; background:#00ffff; transition:all 0.3s ease;
+}
+form button:hover { background:#00ffffaa; transform:scale(1.05); }
+
+.switch-text { font-size:0.85rem; margin-top:10px; color:#00ffff80; text-align:center; }
+
+/* New noticeable switch link */
+.switch-link {
+  color: #ff00ff;  /* neon pink for noticeable link */
+  font-weight:600;
+  cursor:pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+.switch-link:hover {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Welcome text */
+.welcome-text { text-align:center; }
+
+/* Diagonal Overlay */
+.diagonal-overlay {
+  position:absolute;
+  top:-50%;
+  left:-50%;
+  width:200%;
+  height:200%;
+  background:#00ffff10;
+  transform:rotate(135deg);
+  transition: transform 0.8s ease, background 0.8s ease;
+  pointer-events:none;
+  z-index:1;
+}
+
+/* Rotate overlay based on toggle */
+.tile.login-active .diagonal-overlay {
+  transform:rotate(135deg);
+  background:linear-gradient(135deg, #00ffff20 50%, transparent 50%);
+}
+.tile.signup-active .diagonal-overlay {
+  transform:rotate(-45deg);
+  background:linear-gradient(-45deg, #00ffff20 50%, transparent 50%);
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .tile { flex-direction:column; height:auto; width:90%; }
+  .left-side, .right-side { width:100%; padding:30px; }
+  .diagonal-overlay { display:none; }
+}
+
+/* Forms buttons - glossy finish */
+form button {
+  padding:12px; 
+  margin-top:10px; 
+  border:none; 
+  border-radius:8px; 
+  cursor:pointer; 
+  font-size:16px; 
+  color:#000; 
+  background: linear-gradient(145deg, #00ffff, #00bfff); /* gradient for glossy look */
+  box-shadow: 0 4px 15px #00ffff80, inset 0 -2px 10px #ffffff20; /* soft glow + inner shine */
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+form button::after {
+  content:"";
+  position:absolute;
+  top:0;
+  left:-75%;
+  width:50%;
+  height:100%;
+  background: rgba(255,255,255,0.3);
+  transform: skewX(-25deg);
+  transition: all 0.5s ease;
+}
+
+form button:hover::after {
+  left:125%;
+}
+
+form button:hover {
+  background: linear-gradient(145deg, #00ffff, #00e0ff);
+  box-shadow: 0 6px 20px #00ffffaa, inset 0 -2px 10px #ffffff30;
+  transform: scale(1.05);
 }
